@@ -74,6 +74,7 @@ print "%d%%" % 7
 # list 列表
 # list 可以存储不同类型的值
 # list 可以嵌套
+listInit = list("123") # listInit = ['1', '2', '3']
 classmates = ['monar', 'sandy', 'bob']
 print "Class has %d person." % len(classmates)
 print "%s is the No.1" % classmates[0]
@@ -129,6 +130,9 @@ print "Odd sum from 1 to 99 is %d" % sum
 # 5. dist与set
 
 # dist 字典
+# dic.keys() dic.values() dic.items()
+# dic.clear()
+# del dic[key]
 
 grade_book = {'math': 99, 'chinese': 92, 'english': 89}
 print "My math score is %d" % grade_book['math'] # or grade_book.get('math')
