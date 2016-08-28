@@ -22,9 +22,19 @@ print "The name you input is", name
 
 # 1. 数据类型与变量
 
+# python变量习惯格式为word1_word2格式
+
 # 整数 1, 100, 0, -8000 或者十六进制0xFF00
 # 浮点数 1.23 3.14 -9.01 1.23e9 1.2e-5
 # 字符串 "I'm OK'"  r"\\\\\\"(不转义)
+
+name = "ada lovelace"
+print name.title() # Ada Lovelace
+print name.upper() # ADA LOVELACE
+print name.lower() # ada lovelace
+name = "  monar  "
+print name.strip() # monar
+
 # '''Some thing''' 表示多行字符串
 print r'\\\\\\'
 
@@ -85,6 +95,11 @@ print "We have a new classmate: %s" % classmates[-1]
 classmates.insert(1, 'jack')
 print "%s has the second place." % classmates[1]
 print "We delete a classmates", classmates.pop() # pop(index) 删除指定位置的元素并返回
+# del classmates[-1] 也可直接删除元素
+# classmates.remove(key) 删除遇到第一个匹配key的元素
+# classmates.sort(reverse=True) 用于永久性排序
+# classmates.reverse() 永久性翻转
+# sorted(classmates) 返回排序的副本
 
 # tuple 元祖
 # 类似于list，但是一经初始化就不可修改，安全
