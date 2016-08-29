@@ -1,4 +1,5 @@
 #coding=utf-8
+
 import time
 import random
 
@@ -13,10 +14,17 @@ class Sort(object):
                 return False
         return True
 
+class Bubble(Sort):
+    '''冒泡排序O(n2)
+    '''
+    def sort(self, arr):
+        for i in range(len(arr) - 1, 0, -1):
+            for j in range(0, i):
+                if arr[j] > arr[j + 1]:
+                    arr[j], arr[j + 1] = arr[j + 1], arr[j]    
     
 class Select(Sort):
-    '''
-    选择排序 O(n2)
+    '''选择排序 O(n2)
     '''
     def sort(self, arr):
         for i in range(len(arr)):
@@ -26,8 +34,7 @@ class Select(Sort):
             arr[i], arr[minIndex] = arr[minIndex], arr[i]
 
 class Insert(Sort):
-    '''
-    插入排序 O(n2)
+    '''插入排序 O(n2)
     '''
     def sort(self, arr):
         for i in range(1, len(arr)):
@@ -36,8 +43,7 @@ class Insert(Sort):
                 i -= 1
 
 class Shell(Sort):
-    '''
-    希尔排序 
+    '''希尔排序 
     '''
     def sort(self, arr):
         step = 1
@@ -53,8 +59,7 @@ class Shell(Sort):
 
 
 class Merge(Sort):
-    '''
-    合并排序 O(nlgn)
+    '''合并排序 O(nlgn)
     '''
     def sort(self, arr):
         self.mergeSort(arr, 0, len(arr) - 1)
@@ -91,9 +96,37 @@ class Merge(Sort):
 
 class Quick(Sort):
     def sort(self, arr):
-        pass
-
-
+        self.quicksort(arr, 0, len(arr) - 1)
+        
+    def quicksort(self, arr, i, j):
+        if i >= j:
+            return
+        base = self.getBaseIndex(arr, i, j)
+        self.quicksort(arr, i, base - 1);
+        self.quicksort(arr, base + 1, j);
+        
+    def getBaseIndex(self, arr, i, j):
+        base = arr[i]
+        flag = True
+        while i < j:
+            if flag:
+                while j > i and base <= arr[j]:
+                    j -= 1
+                if j == i:
+                    break
+                else:
+                    arr[i] = arr[j]
+                    flag = False
+            else:
+                while i < j and base >= arr[i]:
+                    i += 1
+                if j == i:
+                    break
+                else:
+                    arr[j] = arr[i]
+                    flag = True
+        arr[i] = base
+        return i
 
 class SortTest(object):
     def time(self, alg, arr):
@@ -106,6 +139,8 @@ class SortTest(object):
             Shell().sort(arr)
         elif alg == 'Merge':
             Merge().sort(arr)
+        elif alg == 'Quick':
+            Quick().sort(arr)
         return (time.time() - start) / 1000
     def test(self, alg, times, arrNum):
         total = 0
@@ -116,9 +151,10 @@ class SortTest(object):
             total += self.time(alg, arr) 
         print alg, "'s time is", total, 'second.'
 
+
+
 if __name__ == '__main__':
     test = SortTest()
-    
-    test.test('Shell', 100, 1000)
-   
-    test.test('Merge', 100, 1000)
+    #test.test('Insert', 1000, 10000)
+    test.test('Merge', 1000, 10000)
+    test.test('Quick', 1000, 10000)
