@@ -95,6 +95,8 @@ class Merge(Sort):
 
 
 class Quick(Sort):
+    '''快速排序 O(NlgN)
+    '''
     def sort(self, arr):
         self.quicksort(arr, 0, len(arr) - 1)
         
@@ -102,8 +104,8 @@ class Quick(Sort):
         if i >= j:
             return
         base = self.getBaseIndex(arr, i, j)
-        self.quicksort(arr, i, base - 1);
-        self.quicksort(arr, base + 1, j);
+        self.quicksort(arr, i, base - 1)
+        self.quicksort(arr, base + 1, j)
         
     def getBaseIndex(self, arr, i, j):
         base = arr[i]
@@ -128,6 +130,35 @@ class Quick(Sort):
         arr[i] = base
         return i
 
+class Heap(Sort):
+    ''' 堆排序 O(NlgN)
+    '''
+    def sort(self, arr):
+        arr.insert(0, None)
+        n = len(arr) - 1
+        # 构造堆
+        for i in range(n / 2, 0, -1):
+            self.sink(arr, i, n)
+        
+        # 下沉排序
+        while n > 1:
+            arr[1], arr[n] = arr[n], arr[1]
+            n -= 1
+            self.sink(arr, 1, n)
+        
+        del arr[0]
+    
+    def sink(self, arr, k, n):
+        while 2 * k <= n:
+            j = 2 * k
+            if j < n and arr[j] < arr[j + 1]:
+                j += 1
+            if arr[k] >= arr[j]:
+                break
+            arr[j], arr[k] = arr[k], arr[j]
+            k = j
+    
+
 class SortTest(object):
     def time(self, alg, arr):
         start = time.time()
@@ -141,6 +172,10 @@ class SortTest(object):
             Merge().sort(arr)
         elif alg == 'Quick':
             Quick().sort(arr)
+        elif alg == 'Bubble':
+            Bubble().sort(arr)
+        elif alg == 'Heap':
+            Heap().sort(arr)
         return (time.time() - start) / 1000
     def test(self, alg, times, arrNum):
         total = 0
@@ -155,6 +190,9 @@ class SortTest(object):
 
 if __name__ == '__main__':
     test = SortTest()
-    #test.test('Insert', 1000, 10000)
-    test.test('Merge', 1000, 10000)
-    test.test('Quick', 1000, 10000)
+#     test.test('Select', 100, 100)
+#     test.test('Bubble', 100, 100)
+#     test.test('Insert', 100, 100)
+    test.test('Merge', 1000, 1000)
+    test.test('Quick', 1000, 1000)
+    test.test('Heap', 1000, 1000)
