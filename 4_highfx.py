@@ -8,10 +8,10 @@
 
 # 高阶函数
 # 函数名也是变量，类似js，一个函数接受另一个函数作为参数，则成为高阶函数
-def add(x, y, f):
-    return f(x) + f(y)
+# def add(x, y, f):
+#     return f(x) + f(y)
 
-print add(-1, -2, abs)
+# print add(-1, -2, abs)
 
 # map/reduce
 
